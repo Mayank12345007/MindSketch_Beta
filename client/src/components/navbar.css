@@ -1,0 +1,46 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 4%;
+    align-items: center;
+    border-bottom: 1px solid rgb(165, 165, 165);
+}
+.logo{
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 5px;
+    border-bottom:var(--color1) dotted 2px;
+    transition: 1s ease-in-out;
+}
+.logo:hover{
+    border-bottom: var(--color1) solid 2px;
+}
+.items{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.item{
+    letter-spacing: 1px;
+    border-bottom: solid 2px transparent;
+}
+.item:hover {
+    border-bottom: var(--color1) solid 2px;
+}
+
+.user-info{
+    display: flex;
+    align-items: center;
+}
+.user-img{
+    height: 40px;
+    border-radius: 25px;
+    margin: 0rem 0.8rem;
+}
+.user-nickname{
+    max-width: 100px;
+    text-transform: uppercase; 
+}
+.nav-user{
+    border-left: 1px solid rgb(165, 165, 165);
+}
