@@ -27,20 +27,3 @@
 .item:hover {
     border-bottom: var(--color1) solid 2px;
 }
-
-.user-info{
-    display: flex;
-    align-items: center;
-}
-.user-img{
-    height: 40px;
-    border-radius: 25px;
-    margin: 0rem 0.8rem;
-}
-.user-nickname{
-    max-width: 100px;
-    text-transform: uppercase; 
-}
-.nav-user{
-    border-left: 1px solid rgb(165, 165, 165);
-}

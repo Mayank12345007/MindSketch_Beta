@@ -1,11 +1,7 @@
 import React from "react";
 const FormField = ({
   labelname,
-  type,
   name,
-  placeholder,
-  value,
-  handleChange,
   isSurpriseMe,
   handleSurpriseMe,
 }) => {
