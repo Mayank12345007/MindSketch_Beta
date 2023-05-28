@@ -5,9 +5,11 @@ import jwt from "jsonwebtoken";
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
+  try {
+    const { username, email, password } = req.body;
   const checkemail = await UserModel.findOne({ email });
-  if (checkemail) {
+  const checkusername = await UserModel.findOne({ username });
+  if (checkemail || checkusername) {
     return res.json({ message: "user already exist" });
   }
   const hashedpassword = await bcrypt.hash(password, 10);
@@ -16,11 +18,15 @@ router.post("/register", async (req, res) => {
     email,
     password: hashedpassword,
   }).save();
-  res.json({ message: "User Registered Successfully" });
+  res.json({ message: "Registration Successful" });
+  } catch (error) {
+    res.status(400).json(error)
+  }
 });
 
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
   const user = await UserModel.findOne({ email });
   if (!user) {
     return res.json({ message: "User not found" });
@@ -31,6 +37,23 @@ router.post("/login", async (req, res) => {
   }
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
   res.status(200).json({ success: "true", token, userid: user._id });
+  } catch (error) {
+    res.status(400).json(error)
+  }
+  
 });
+
+router.get("/",async (req,res)=>{
+  try {
+    const user = await UserModel.findById(req.body.userid);
+    if(!user){
+      res.status(400).json({message:"User not found with given id"})
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
+
 
 export { router as userRouter };

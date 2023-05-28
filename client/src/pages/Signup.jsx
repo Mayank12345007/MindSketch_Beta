@@ -3,41 +3,42 @@ import "./signup.css";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 const Signup = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [formdata, setformdata] = useState({
     username: "",
     email: "",
     password: "",
   });
   const handleChange = (e) => {
-    setformdata({...formdata , [e.target.name]:e.target.value})
+    setformdata({ ...formdata, [e.target.name]: e.target.value });
   };
-  const handleClick = async(e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
+    if (
+      formdata.username == "" ||
+      formdata.email == "" ||
+      formdata.password == ""
+    ) {
+      return alert("Input field must not be empty");
+    }
     try {
-        // await Axios.post("http://localhost8000/api/v1/auth/register",{
-        //     username:formdata.username,
-        //     email:formdata.email,
-        //     password:formdata.password,
-        // });
-
-      const response = await fetch("http://localhost8000/api/v1/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username:formdata.username,
-        email:formdata.email,
-        password:formdata.password,
-      }),
-    });
-    const result = await response.json();
-    console.log("Success:", result);
-    navigate('/');
+      const response = await Axios.post(
+        "http://localhost:8000/api/v1/auth/register",
+        {
+          username: formdata.username,
+          email: formdata.email,
+          password: formdata.password,
+        }
+      );
+      if(response.data.message == "user already exist"){
+        return alert("User already exist")
+      }
+      alert("Registration Successful!");
+      navigate('/login')
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
   };
   return (
@@ -89,10 +90,12 @@ const Signup = () => {
                 name="password"
                 value={formdata.password}
               ></input>
-              <div className="signup-checkbox">
+              {/* <div className="signup-checkbox">
                 <input type="checkbox" className="checkbox-input"></input>
-                <p className="signup-para">I Accept terms and conditions & privacy policy.</p>
-              </div>
+                <p className="signup-para">
+                  I Accept terms and conditions & privacy policy.
+                </p>
+              </div> */}
               <button
                 className="button"
                 id="login-signup-btn"
