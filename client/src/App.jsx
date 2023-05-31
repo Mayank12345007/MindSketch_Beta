@@ -6,7 +6,6 @@ import Create from "./pages/Create";
 import Saved from "./pages/Saved";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Footer from "./components/Footer";
 import { useCookies } from "react-cookie";
 function App() {
   const [cookies, setCookies] = useCookies(["access_token"]);
@@ -25,7 +24,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
-      {/* <Footer /> */}
     </Router>
   );
 }

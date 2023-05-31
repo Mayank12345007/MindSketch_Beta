@@ -1,8 +1,7 @@
 .create-container {
   display: flex;
-  max-width: 1480px;
-  margin: 0 auto;
-  margin-top: 3rem;
+  max-width: 1440px;
+  margin: 1.5rem auto;
   padding: 1rem;
   box-shadow: 10px 20px 30px gray;
   border-radius: 15px;
@@ -62,7 +61,8 @@
   border: none;
 }
 .form-input {
-  min-width: 720px;
+  /* min-width: 720px; */
+  width: 100%;
   font-size: 16px;
   margin-top: 0.4rem;
   margin-bottom: 1rem;
@@ -93,8 +93,8 @@
   align-items: center;
   justify-content: center;
   margin-left: 10px;
-  max-height: 80vh;
-  width: 100%;
+  
+  width: 50%;
   overflow: hidden;
   border-radius: 10px;
   position: relative;

@@ -13,7 +13,28 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET_KEY,
 });
 
-router.get("/", async (req, res) => {});
-router.post("/", async (req, res) => {});
+router.get("/", async (req, res) => {
+  try {
+    const posts = await PostModel.find({});
+    res.status(200).json({ success: true, data: posts });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error });
+  }
+});
+router.post("/", async (req, res) => {
+  try {
+    const { name, prompt, photo } = req.body;
+    const photoURL = await cloudinary.uploader.upload(photo);
+
+    const newPost = await PostModel.create({
+      name,
+      prompt,
+      photo: photoURL.secure_url,
+    });
+    res.status(201).json({ success: true, data: newPost });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error });
+  }
+});
 
 export { router as postRouter };

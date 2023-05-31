@@ -16,7 +16,35 @@ const Create = () => {
   const [generatingImg, setGeneratingImg] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = () => {};
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    if(form.prompt && form.photo){
+      setLoading(true);
+      try {
+        const response = await fetch("http://localhost:8000/api/v1/post" , {
+          method: 'POST',
+          headers : {
+            'Content-Type':'application/json',
+          },
+          body : JSON.stringify(form)
+        })
+        await response.json();
+        // const response = await Axios.post("http://localhost:8000/api/v1/post",{
+        //   name:form.name,
+        //   prompt:form.prompt,
+        //   photo:form.photo
+        // })
+        navigate("/")
+      } catch (error) {
+        alert(error)
+      } finally {
+        setLoading(false);
+      }
+    }
+    else{
+      alert('Please enter a prompt and generate a image');
+    }
+  };
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -37,7 +65,8 @@ const Create = () => {
         });
 
         const data = await response.json();
-        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+        // setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+        await setForm({ ...form, photo: data.imageURL });
       } catch (error) {
         alert(error);
       } finally {
@@ -49,7 +78,7 @@ const Create = () => {
   };
 
   return (
-    <div className="hero">
+    
       <section className="create-container">
         <div className="form-container">
           <div className="create">
@@ -118,7 +147,7 @@ const Create = () => {
                 Once you have generated the image of your desire, you can share
                 it with others in the Community
               </p>
-              <button type="submit" className="button" id="share-btn">
+              <button type="submit" className="button" id="share-btn" onClick={handleSubmit}>
                 {loading ? "Sharing..." : "Share with Community"}
               </button>
             </div>
@@ -126,7 +155,7 @@ const Create = () => {
         </div>
         <div className="pic-container"></div>
       </section>
-    </div>
+   
   );
 };
 

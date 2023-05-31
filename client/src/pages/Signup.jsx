@@ -90,12 +90,6 @@ const Signup = () => {
                 name="password"
                 value={formdata.password}
               ></input>
-              {/* <div className="signup-checkbox">
-                <input type="checkbox" className="checkbox-input"></input>
-                <p className="signup-para">
-                  I Accept terms and conditions & privacy policy.
-                </p>
-              </div> */}
               <button
                 className="button"
                 id="login-signup-btn"

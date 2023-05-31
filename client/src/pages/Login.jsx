@@ -29,6 +29,9 @@ const Login = () => {
       })
       setCookies("access_token", response.data.token);
       window.localStorage.setItem("userID", response.data.userid);
+      let username = JSON.stringify(response.data.user.username);
+      let newusername = username.replace(/"/g, "");
+      window.localStorage.setItem("username", newusername);
       navigate("/");
     } catch (error) {
       console.log(error)
